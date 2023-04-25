@@ -11,6 +11,10 @@ export class ClimatesService {
         return this.climates;
     }
 
+    getClimatesByType(type: ClimateType): Climate[] {
+        return this.climates.filter((climate) => climate.type === type)
+    }
+
     createTask(createClimateDto: CreateClimateDto): Climate {
         const { value, time } = createClimateDto;
         
