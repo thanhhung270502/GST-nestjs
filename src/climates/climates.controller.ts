@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ClimatesService } from './climates.service';
-import { Climate, ClimateType } from './climates.model';
+import { Climate, ClimateType } from './climate.model';
 import { CreateClimateDto } from './dto/create-climate.dto';
 
 @Controller('climates')
