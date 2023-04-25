@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { ClimateType } from "./climate.model";
+import { ClimateType } from "./climate-type.enum";
 
 @Entity()
 export class Climate {
