@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Delete } from '@nestjs/common';
 import { ClimatesService } from './climates.service';
 import { ClimateType } from './climate-type.enum';
 import { CreateClimateDto } from './dto/create-climate.dto';
@@ -8,25 +8,25 @@ import { Climate } from './climate.entity';
 export class ClimatesController {
     constructor(private climatesService: ClimatesService) {}
 
+    // http://localhost:3000/climates
+    @Get()
+    getAllClimates(): Promise<Climate[]> {
+        return this.climatesService.getAllClimates();
+    }
+
+    // http://localhost:3000/climates/:type
     @Get('/:type')    
     getClimatesByType(@Param('type') type: ClimateType): Promise<Climate[]> {
         return this.climatesService.getClimatesByType(type);
     }
 
-//   // localhost:3000/climates
-//   @Get()
-//   getAllClimates(): Climate[] {
-//     return this.climatesService.getAllClimates();
-//   }
+    @Post()
+    createClimate(@Body() createClimateDto: CreateClimateDto): Promise<Climate> {
+        return this.climatesService.createTask(createClimateDto);
+    }
 
-//   // localhost:3000/climates/:type
-//   @Get('/:type')
-//   getClimatesByType(@Param('type') type: ClimateType): Climate[] {
-//     return this.climatesService.getClimatesByType(type);
-//   }
-
-//   @Post()
-//   createClimate(@Body() createClimateDto: CreateClimateDto): Climate {
-//     return this.climatesService.createTask(createClimateDto);
-//   }
+    @Delete('/:id')
+    deleteClimate(@Param('id') id: string): Promise<void> {
+        return this.climatesService.deleteClimate(id);
+    }
 }
