@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ClimatesModule } from './climates/climates.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     ClimatesModule,
+    AuthModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
