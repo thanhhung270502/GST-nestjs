@@ -21,7 +21,7 @@ export class AuthService {
   ) {}
 
   async signUp(authCredentialsDto: AuthCredentialsDto): Promise<void> {
-    const { username, password, name, avatar } = authCredentialsDto;
+    const { username, password, name, avatar, created_at, updated_at } = authCredentialsDto;
 
     // hash
     const salt = await bcrypt.genSalt();
@@ -31,7 +31,9 @@ export class AuthService {
       username,
       password: hashedPassword,
       name,
-      avatar
+      avatar,
+      created_at: new Date(),
+      updated_at: new Date(),
     });
 
     try {
@@ -48,7 +50,7 @@ export class AuthService {
 
   async signIn(
     authCredentialsDto: AuthCredentialsDto,
-  ): Promise<{ accessToken: string }> {
+  ): Promise<User> {
     const { username, password } = authCredentialsDto;
 
     const user = await this.usersRepository.findOne({
@@ -60,7 +62,7 @@ export class AuthService {
     if (user && (await bcrypt.compare(password, user.password))) {
       const payload: JwtPayload = { username };
       const accessToken: string = await this.jwtService.sign(payload);
-      return { accessToken };
+      return user;
     } else {
       throw new UnauthorizedException('Please check your login credentials');
     }

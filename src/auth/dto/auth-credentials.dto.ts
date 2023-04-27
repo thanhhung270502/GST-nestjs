@@ -14,9 +14,9 @@ export class AuthCredentialsDto {
     })
     password: string;
 
-    @IsString()
     name: string;
-
-    @IsString()
     avatar: string;
+
+    created_at: Date;
+    updated_at: Date;
 }

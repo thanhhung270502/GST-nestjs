@@ -16,4 +16,10 @@ export class User {
 
     @Column()
     avatar: string;
+
+    @Column()
+    created_at: Date;
+
+    @Column()
+    updated_at: Date;
 }
