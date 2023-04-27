@@ -21,7 +21,7 @@ export class AuthService {
   ) {}
 
   async signUp(authCredentialsDto: AuthCredentialsDto): Promise<void> {
-    const { username, password } = authCredentialsDto;
+    const { username, password, name, avatar } = authCredentialsDto;
 
     // hash
     const salt = await bcrypt.genSalt();
@@ -30,6 +30,8 @@ export class AuthService {
     const user = this.usersRepository.create({
       username,
       password: hashedPassword,
+      name,
+      avatar
     });
 
     try {
