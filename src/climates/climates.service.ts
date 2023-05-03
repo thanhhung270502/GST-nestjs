@@ -34,10 +34,10 @@ export class ClimatesService {
     }
 
     async createTask(createClimateDto: CreateClimateDto): Promise<Climate>  {
-        const { value, time } = createClimateDto;
+        const { type, value, time } = createClimateDto;
 
         const climate = this.climatesRepository.create({
-            type: ClimateType.TEMP,
+            type,
             value,
             time
         });
