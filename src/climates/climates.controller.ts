@@ -20,6 +20,7 @@ export class ClimatesController {
         return this.climatesService.getClimatesByType(type);
     }
 
+    // http://localhost:3000/climates
     @Post()
     createClimate(@Body() createClimateDto: CreateClimateDto): Promise<Climate> {
         return this.climatesService.createTask(createClimateDto);

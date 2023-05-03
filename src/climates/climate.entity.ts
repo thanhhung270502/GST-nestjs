@@ -9,7 +9,7 @@ export class Climate {
     @Column()
     type: ClimateType;
 
-    @Column()
+    @Column('decimal', { precision: 10, scale: 2 })
     value: number;
 
     @Column()
