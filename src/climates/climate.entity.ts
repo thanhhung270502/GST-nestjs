@@ -1,17 +1,17 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { ClimateType } from "./climate-type.enum";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { ClimateType } from './climate-type.enum';
 
 @Entity()
 export class Climate {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @Column()
-    type: ClimateType;
+  @Column()
+  type: ClimateType;
 
-    @Column('decimal', { precision: 10, scale: 2 })
-    value: number;
+  @Column('decimal', { precision: 10, scale: 2 })
+  value: number;
 
-    @Column()
-    time: Date; 
+  @Column()
+  time: Date;
 }

@@ -5,7 +5,7 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
   app.useGlobalPipes(new ValidationPipe());
-
-  await app.listen(3000);
+  process.env.TZ = 'ETC/Universal';
+  await app.listen(4000);
 }
 bootstrap();
