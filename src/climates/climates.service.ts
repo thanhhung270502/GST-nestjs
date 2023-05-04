@@ -33,7 +33,7 @@ export class ClimatesService {
         return result;
     }
 
-    async createTask(createClimateDto: CreateClimateDto): Promise<Climate>  {
+    async createClimate(createClimateDto: CreateClimateDto): Promise<Climate>  {
         const { type, value, time } = createClimateDto;
 
         const climate = this.climatesRepository.create({
@@ -63,26 +63,4 @@ export class ClimatesService {
 
         return climate;
     }
-
-    // getAllClimates(): Climate[] {
-    //     return this.climates;
-    // }
-
-    // getClimatesByType(type: ClimateType): Climate[] {
-    //     return this.climates.filter((climate) => climate.type === type)
-    // }
-
-    // createTask(createClimateDto: CreateClimateDto): Climate {
-    //     const { value, time } = createClimateDto;
-        
-    //     const climate: Climate = {
-    //         id: uuid(),
-    //         type: ClimateType.TEMP,
-    //         value,
-    //         time
-    //     };
-
-    //     this.climates.push(climate);
-    //     return climate;
-    // }
 }

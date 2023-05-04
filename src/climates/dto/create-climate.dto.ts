@@ -8,7 +8,7 @@ export class CreateClimateDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    @IsDecimal({ decimal_digits: '2', force_decimal: true })
+    // @IsDecimal({ decimal_digits: '2', force_decimal: true })
     value: number;
 
     @IsNotEmpty()

@@ -23,7 +23,7 @@ export class ClimatesController {
     // http://localhost:3000/climates
     @Post()
     createClimate(@Body() createClimateDto: CreateClimateDto): Promise<Climate> {
-        return this.climatesService.createTask(createClimateDto);
+        return this.climatesService.createClimate(createClimateDto);
     }
 
     @Delete('/:id')

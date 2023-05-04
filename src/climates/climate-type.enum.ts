@@ -1,6 +1,6 @@
 export enum ClimateType {
     TEMP = 'temp',
     LIGHT = 'light',
-    HUMID = 'humid',
+    HUMID = 'humi',
     SOIL = 'soil'
 }
