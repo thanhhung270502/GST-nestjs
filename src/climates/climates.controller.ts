@@ -19,6 +19,12 @@ export class ClimatesController {
     getClimatesByType(@Param('type') type: ClimateType): Promise<Climate[]> {
         return this.climatesService.getClimatesByType(type);
     }
+    
+    // http://localhost:3000/climates/last/:type
+    @Get('/last/:type')
+    getLastClimateByType(@Param('type') type: ClimateType): Promise<Climate> {
+        return this.climatesService.getLastClimateByType(type);
+    }
 
     // http://localhost:3000/climates
     @Post()

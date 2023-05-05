@@ -33,6 +33,12 @@ export class ClimatesService {
         return result;
     }
 
+    async getLastClimateByType(type: ClimateType): Promise<Climate> {
+        const climate = await this.climatesRepository.createQueryBuilder("climate").where("climate.type = :type", {type: type}).orderBy("climate.time", "DESC").getOne();
+
+        return climate;
+    }
+
     async createClimate(createClimateDto: CreateClimateDto): Promise<Climate>  {
         const { type, value, time } = createClimateDto;
 

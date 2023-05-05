@@ -1,6 +1,10 @@
 import { IsNotEmpty } from "class-validator";
+import { NotiStatus } from "../noti-status.enum";
 
 export class CreateNotificationDto {
+    @IsNotEmpty()
+    status: NotiStatus;
+
     @IsNotEmpty()
     problem: string;
 
