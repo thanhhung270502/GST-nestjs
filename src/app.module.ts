@@ -4,6 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { HistoryModule } from './history/history.module';
 import { NotificationModule } from './notification/notification.module';
+import { ScheduleModule } from './schedule/schedule.module';
+import { UserKeyModule } from './userkeys/schedule.module';
 
 @Module({
   imports: [
@@ -11,6 +13,8 @@ import { NotificationModule } from './notification/notification.module';
     AuthModule,
     HistoryModule,
     NotificationModule,
+    ScheduleModule,
+    UserKeyModule,
 
     TypeOrmModule.forRoot({
       type: 'postgres',
