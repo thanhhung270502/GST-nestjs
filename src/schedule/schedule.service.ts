@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Schedule } from './schedule.entity';
 import { Injectable } from "@nestjs/common";
 import { Repository } from 'typeorm';
+import { ClimateType } from 'src/climates/climate-type.enum';
 
 @Injectable()
 export class ScheduleService {
@@ -12,19 +13,34 @@ export class ScheduleService {
     ) {}
 
     async getAllSchedules(): Promise<Schedule[]> {
-        const schedules = await this.scheduleRepository.query("SELECT * FROM NOTIFICATION");
+        const schedules = await this.scheduleRepository.query("SELECT * FROM SCHEDULE");
 
         return schedules;
     }
 
     async createSchedule(createScheduleDto: CreateScheduleDto): Promise<Schedule> {
-        const { type, key_user_id, start_time, end_time, status } = createScheduleDto;
+        const { type, start_time, end_time, garden_id } = createScheduleDto;
 
         const schedule = this.scheduleRepository.create({
-            type, key_user_id, start_time, end_time, status
-        })
+            type, 
+            start_time, 
+            end_time, 
+            garden_id,
+            created_at: new Date(),
+            updated_at: new Date()
+        });
 
         await this.scheduleRepository.save(schedule);
+        return schedule;
+    }
+
+    async getLastScheduleByType(type: ClimateType): Promise<Schedule> {
+        const schedule = await this.scheduleRepository
+            .createQueryBuilder("schedule")
+            .where("schedule.type = :type", {type: type})
+            .orderBy("schedule.created_at", "DESC")
+            .getOne();
+
         return schedule;
     }
 }

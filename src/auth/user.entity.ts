@@ -18,6 +18,9 @@ export class User {
     avatar: string;
 
     @Column()
+    garden_id: string;
+
+    @Column()
     created_at: Date;
 
     @Column()

@@ -5,7 +5,8 @@ import { AuthModule } from './auth/auth.module';
 import { HistoryModule } from './history/history.module';
 import { NotificationModule } from './notification/notification.module';
 import { ScheduleModule } from './schedule/schedule.module';
-import { UserKeyModule } from './userkeys/schedule.module';
+import { DeviceModule } from './device/device.module';
+import { GardenModule } from './garden/garden.module';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { UserKeyModule } from './userkeys/schedule.module';
     HistoryModule,
     NotificationModule,
     ScheduleModule,
-    UserKeyModule,
+    GardenModule,
+    DeviceModule,
 
     TypeOrmModule.forRoot({
       type: 'postgres',

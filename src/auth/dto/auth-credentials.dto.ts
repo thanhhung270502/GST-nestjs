@@ -17,6 +17,8 @@ export class AuthCredentialsDto {
     name: string;
     avatar: string;
 
+    garden_id: string;
+
     created_at: Date;
     updated_at: Date;
 }

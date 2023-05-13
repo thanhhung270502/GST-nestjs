@@ -11,14 +11,17 @@ export class Schedule {
     type: ClimateType;
 
     @Column()
-    key_user_id: string
-    
-    @Column()
     start_time: Date;
-    
+
     @Column()
     end_time: Date;
 
     @Column()
-    status: ScheduleStatus;
+    garden_id: string;
+
+    @Column()
+    created_at: Date;
+
+    @Column()
+    updated_at: Date;
 }

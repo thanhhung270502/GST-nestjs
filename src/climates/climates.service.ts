@@ -40,12 +40,13 @@ export class ClimatesService {
     }
 
     async createClimate(createClimateDto: CreateClimateDto): Promise<Climate>  {
-        const { type, value, time } = createClimateDto;
+        const { type, value, time, garden_id } = createClimateDto;
 
         const climate = this.climatesRepository.create({
             type,
             value,
-            time
+            time,
+            garden_id
         });
 
         await this.climatesRepository.save(climate);

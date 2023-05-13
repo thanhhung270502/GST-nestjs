@@ -1,8 +1,8 @@
 import { IsNotEmpty } from "class-validator";
 
-export class CreateUserKeyDto {
+export class CreateGardenDto {
     @IsNotEmpty()
-    user_id: string;
+    url: string;
 
     @IsNotEmpty()
     key: string;

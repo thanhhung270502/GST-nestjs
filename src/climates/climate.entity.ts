@@ -14,4 +14,7 @@ export class Climate {
 
   @Column()
   time: Date;
+
+  @Column()
+  garden_id: string;
 }

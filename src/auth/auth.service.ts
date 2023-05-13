@@ -3,6 +3,7 @@ import {
   ConflictException,
   Injectable,
   InternalServerErrorException,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -21,7 +22,8 @@ export class AuthService {
   ) {}
 
   async signUp(authCredentialsDto: AuthCredentialsDto): Promise<void> {
-    const { username, password, name, avatar, created_at, updated_at } = authCredentialsDto;
+    const { username, password, name, avatar, garden_id } =
+      authCredentialsDto;
 
     // hash
     const salt = await bcrypt.genSalt();
@@ -32,6 +34,7 @@ export class AuthService {
       password: hashedPassword,
       name,
       avatar,
+      garden_id,
       created_at: new Date(),
       updated_at: new Date(),
     });
@@ -48,9 +51,7 @@ export class AuthService {
     }
   }
 
-  async signIn(
-    authCredentialsDto: AuthCredentialsDto,
-  ): Promise<User> {
+  async signIn(authCredentialsDto: AuthCredentialsDto): Promise<User> {
     const { username, password } = authCredentialsDto;
 
     const user = await this.usersRepository.findOne({
@@ -66,5 +67,19 @@ export class AuthService {
     } else {
       throw new UnauthorizedException('Please check your login credentials');
     }
+  }
+
+  async getUserByID(user_id: string): Promise<User> {
+    const user = await this.usersRepository.findOne({
+      where: {
+        id: user_id
+      }
+    })
+
+    if (!user) {
+      throw new NotFoundException(`User with id ${user_id} not found`);
+    }
+
+    return user;
   }
 }

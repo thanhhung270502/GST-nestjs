@@ -13,4 +13,6 @@ export class CreateClimateDto {
 
     @IsNotEmpty()
     time: Date;
+
+    garden_id: string;
 }

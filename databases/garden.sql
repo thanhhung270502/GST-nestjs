@@ -1,0 +1,1 @@
+INSERT INTO garden (id, url, key) VALUES ('00000000-0000-0000-0000-000000000000', 'https://io.adafruit.com/api/v2/vienminhphuc/feeds/', 'aio_vzdq51hH08Y7zHyKkTTXSx8ubgIp');

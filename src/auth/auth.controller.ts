@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { User } from './user.entity';
@@ -18,4 +18,10 @@ export class AuthController {
   ): Promise<User> {
     return this.authService.signIn(authCredentialsDto);
   }
+
+  @Get('/:id')
+  getUserByID(@Param('id') id: string): Promise<User> {
+    return this.authService.getUserByID(id);
+  }
+
 }

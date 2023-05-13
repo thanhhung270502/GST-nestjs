@@ -12,4 +12,7 @@ export class CreateNotificationDto {
 
     @IsNotEmpty()
     time: Date;
+
+    @IsNotEmpty()
+    garden_id: string;
 }

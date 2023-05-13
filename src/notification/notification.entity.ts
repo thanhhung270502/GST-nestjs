@@ -17,4 +17,7 @@ export class Notification {
 
     @Column()
     time: Date;
+
+    @Column()
+    garden_id: string;
 }

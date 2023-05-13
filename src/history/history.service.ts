@@ -18,13 +18,14 @@ export class HistoryService {
     }
 
     async createHistory(createHistoryDto: CreateHistoryDto): Promise<History> {
-        const { editor, activity, time } = createHistoryDto;
+        const { user_id, garden_id , activity, time } = createHistoryDto;
 
         const history = this.historyRepository.create({
-            editor,
+            user_id,
+            garden_id,
             activity,
             time
-        })
+        });
 
         await this.historyRepository.save(history);
         return history;

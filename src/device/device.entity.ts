@@ -1,19 +1,13 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class History {
+export class Device {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
     @Column()
-    user_id: string;
+    name: string;
 
     @Column()
-    garden_id: string;
-
-    @Column()
-    activity: string;
-
-    @Column()
-    time: Date;
+    status: number;
 }
