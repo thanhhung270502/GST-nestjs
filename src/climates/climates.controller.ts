@@ -6,34 +6,34 @@ import { Climate } from './climate.entity';
 
 @Controller('climates')
 export class ClimatesController {
-    constructor(private climatesService: ClimatesService) {}
+  constructor(private climatesService: ClimatesService) {}
 
-    // http://localhost:3000/climates
-    @Get()
-    getAllClimates(): Promise<Climate[]> {
-        return this.climatesService.getAllClimates();
-    }
+  // http://localhost:3000/climates
+  @Get()
+  getAllClimates(): Promise<Climate[]> {
+    return this.climatesService.getAllClimates();
+  }
 
-    // http://localhost:3000/climates/:type
-    @Get('/:type')    
-    getClimatesByType(@Param('type') type: ClimateType): Promise<Climate[]> {
-        return this.climatesService.getClimatesByType(type);
-    }
-    
-    // http://localhost:3000/climates/last/:type
-    @Get('/last/:type')
-    getLastClimateByType(@Param('type') type: ClimateType): Promise<Climate> {
-        return this.climatesService.getLastClimateByType(type);
-    }
+  // http://localhost:3000/climates/:type
+  @Get('/:type')
+  getClimatesByType(@Param('type') type: ClimateType): Promise<Climate[]> {
+    return this.climatesService.getClimatesByType(type);
+  }
 
-    // http://localhost:3000/climates
-    @Post()
-    createClimate(@Body() createClimateDto: CreateClimateDto): Promise<Climate> {
-        return this.climatesService.createClimate(createClimateDto);
-    }
+  // http://localhost:3000/climates/last/:type
+  @Get('/last/:type')
+  getLastClimateByType(@Param('type') type: ClimateType): Promise<Climate> {
+    return this.climatesService.getLastClimateByType(type);
+  }
 
-    @Delete('/:id')
-    deleteClimate(@Param('id') id: string): Promise<void> {
-        return this.climatesService.deleteClimate(id);
-    }
+  // http://localhost:3000/climates
+  @Post()
+  createClimate(@Body() createClimateDto: CreateClimateDto): Promise<Climate> {
+    return this.climatesService.createClimate(createClimateDto);
+  }
+
+  @Delete('/:id')
+  deleteClimate(@Param('id') id: string): Promise<void> {
+    return this.climatesService.deleteClimate(id);
+  }
 }

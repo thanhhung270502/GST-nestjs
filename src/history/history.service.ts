@@ -12,9 +12,10 @@ export class HistoryService {
   ) {}
 
   async getAllHistory(): Promise<History[]> {
-    const histories = await this.historyRepository.query(
-      `SELECT * FROM HISTORY`,
-    );
+    const histories = await this.historyRepository
+      .createQueryBuilder('history')
+      .orderBy('history.time', 'ASC')
+      .getMany();
 
     return histories;
   }

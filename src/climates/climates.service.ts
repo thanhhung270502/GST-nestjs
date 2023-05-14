@@ -1,6 +1,6 @@
 import { CreateClimateDto } from './dto/create-climate.dto';
-import { Injectable, NotFoundException } from "@nestjs/common";
-import { ClimateType } from "./climate-type.enum";
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { ClimateType } from './climate-type.enum';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Climate } from './climate.entity';
 import { Repository } from 'typeorm';
@@ -8,66 +8,76 @@ import { log } from 'console';
 
 @Injectable()
 export class ClimatesService {
-    constructor(
-        @InjectRepository(Climate)
-        private climatesRepository: Repository<Climate>
-    ) {}
+  constructor(
+    @InjectRepository(Climate)
+    private climatesRepository: Repository<Climate>,
+  ) {}
 
-    async getAllClimates(): Promise<Climate[]> {
-        const climates = await this.climatesRepository.query(`SELECT * FROM CLIMATE`);
+  async getAllClimates(): Promise<Climate[]> {
+    const climates = await this.climatesRepository
+      .createQueryBuilder('climate')
+      .orderBy('climate.time', 'ASC')
+      .getMany();
 
-        return climates;
+    return climates;
+  }
+
+  async getClimatesByType(type: ClimateType): Promise<Climate[]> {
+    const result = await this.climatesRepository.find({
+      order: {
+        time: 'ASC',
+      },
+      where: {
+        type: type,
+      },
+    });
+
+    if (!result) {
+      throw new NotFoundException(`Climate with type "${type}" not found`);
     }
 
-    async getClimatesByType(type: ClimateType): Promise<Climate[]> {
-        const result = await this.climatesRepository.find({
-            where: {
-                type: type
-            }
-        })
+    return result;
+  }
 
-        if (!result) {
-            throw new NotFoundException(`Climate with type "${type}" not found`);
-        }
+  async getLastClimateByType(type: ClimateType): Promise<Climate> {
+    const climate = await this.climatesRepository
+      .createQueryBuilder('climate')
+      .where('climate.type = :type', { type: type })
+      .orderBy('climate.time', 'DESC')
+      .getOne();
 
-        return result;
-    }
+    return climate;
+  }
 
-    async getLastClimateByType(type: ClimateType): Promise<Climate> {
-        const climate = await this.climatesRepository.createQueryBuilder("climate").where("climate.type = :type", {type: type}).orderBy("climate.time", "DESC").getOne();
+  async createClimate(createClimateDto: CreateClimateDto): Promise<Climate> {
+    const { type, value, time, garden_id } = createClimateDto;
 
-        return climate;
-    }
+    const climate = this.climatesRepository.create({
+      type,
+      value,
+      time,
+      garden_id,
+    });
 
-    async createClimate(createClimateDto: CreateClimateDto): Promise<Climate>  {
-        const { type, value, time, garden_id } = createClimateDto;
+    await this.climatesRepository.save(climate);
+    return climate;
+  }
 
-        const climate = this.climatesRepository.create({
-            type,
-            value,
-            time,
-            garden_id
-        });
+  async deleteClimate(id: string): Promise<void> {
+    const result = await this.climatesRepository.delete(id);
+    console.log(result);
+  }
 
-        await this.climatesRepository.save(climate);
-        return climate;
-    }
+  async updateClimate(id: string, value: number): Promise<Climate> {
+    const climate = await this.climatesRepository.findOne({
+      where: {
+        id,
+      },
+    });
 
-    async deleteClimate(id: string): Promise<void> {
-        const result = await this.climatesRepository.delete(id);
-        console.log(result);
-    }
+    climate.value = value;
+    await this.climatesRepository.save(climate);
 
-    async updateClimate(id: string, value: number): Promise<Climate> {
-        const climate = await this.climatesRepository.findOne({
-            where: {
-                id
-            }
-        });
-
-        climate.value = value;
-        await this.climatesRepository.save(climate);
-
-        return climate;
-    }
+    return climate;
+  }
 }

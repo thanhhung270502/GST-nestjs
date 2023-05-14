@@ -20,23 +20,22 @@ export class NotificationController {
     return this.notificationService.createNotification(createNotificationDto);
   }
 
-  @Post('/add/:id/:status/:problem/:sub_problem/:time')
-  addNotification(
-    @Param('id') id: string,
-    @Param('status') status: string,
-    @Param('problem') problem: string,
-    @Param('sub_problem') sub_problem: string,
-    @Param('time') time: Date,
-  ): Promise<void> {
-    return this.notificationService.addNotification(
-      id,
-      status,
-      problem,
-      sub_problem,
-      time,
-    );
-  }
-
+  // @Post('/add/:id/:status/:problem/:sub_problem/:time')
+  // addNotification(
+  //   @Param('id') id: string,
+  //   @Param('status') status: string,
+  //   @Param('problem') problem: string,
+  //   @Param('sub_problem') sub_problem: string,
+  //   @Param('time') time: Date,
+  // ): Promise<void> {
+  //   return this.notificationService.addNotification(
+  //     id,
+  //     status,
+  //     problem,
+  //     sub_problem,
+  //     time,
+  //   );
+  // }
   @Delete('/delete/:id')
   deleteNotification(@Param('id') id: string): Promise<void> {
     return this.notificationService.deleteNotification(id);

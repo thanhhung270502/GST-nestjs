@@ -18,13 +18,13 @@ export class HistoryController {
     return this.historyService.createHistory(createHistoryDto);
   }
 
-  @Post('/add/:id/:editor/:activity/:time')
-  addHistory(
-    @Param('id') id: string,
-    @Param('editor') editor: string,
-    @Param('activity') activity: string,
-    @Param('time') time: Date,
-  ): Promise<void> {
-    return this.historyService.addHistory(id, editor, activity, time);
-  }
+  // @Post('/add/:id/:editor/:activity/:time')
+  // addHistory(
+  //   @Param('id') id: string,
+  //   @Param('editor') editor: string,
+  //   @Param('activity') activity: string,
+  //   @Param('time') time: Date,
+  // ): Promise<void> {
+  //   return this.historyService.addHistory(id, editor, activity, time);
+  // }
 }
