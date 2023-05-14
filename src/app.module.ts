@@ -13,11 +13,11 @@ import { NotificationModule } from './notification/notification.module';
     NotificationModule,
 
     TypeOrmModule.forRoot({
-      type: 'postgres',
+      type: 'mysql',
       host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'Petykute161',
+      port: 3306,
+      username: 'root',
+      password: '',
       database: 'climate-management',
       autoLoadEntities: true,
       synchronize: true,

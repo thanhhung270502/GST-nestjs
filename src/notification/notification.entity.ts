@@ -1,16 +1,19 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Notification {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @Column()
-    problem: string;
+  @Column()
+  status: string;
 
-    @Column()
-    sub_problem: string;
+  @Column()
+  problem: string;
 
-    @Column()
-    time: Date;
+  @Column()
+  sub_problem: string;
+
+  @Column()
+  time: Date;
 }

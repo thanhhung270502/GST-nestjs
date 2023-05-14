@@ -1,11 +1,13 @@
-import { IsNotEmpty } from "class-validator";
+import { IsNotEmpty } from 'class-validator';
 
 export class CreateNotificationDto {
-    @IsNotEmpty()
-    problem: string;
+  @IsNotEmpty()
+  status: string;
 
-    sub_problem: string;
+  problem: string;
 
-    @IsNotEmpty()
-    time: Date;
+  sub_problem: string;
+
+  @IsNotEmpty()
+  time: Date;
 }
