@@ -46,14 +46,14 @@ export class GardenService {
     }
 
     async updateKeyGardenByUser(user_id: string, key: string): Promise<Garden> {
-        const garden_id = await this.userRepository
+        const user = await this.userRepository
             .createQueryBuilder("user")
             .where("user.id = :user_id", {user_id: user_id})
             .getOne();
         
         const garden = await this.gardenRepository
             .createQueryBuilder("garden")
-            .where("garden.id = :garden_id", {garden_id: garden_id})
+            .where("garden.id = :garden_id", {garden_id: user.garden_id})
             .getOne();
 
         garden.key = key;
