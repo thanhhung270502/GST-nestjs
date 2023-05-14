@@ -7,6 +7,7 @@ import { NotificationModule } from './notification/notification.module';
 import { ScheduleModule } from './schedule/schedule.module';
 import { DeviceModule } from './device/device.module';
 import { GardenModule } from './garden/garden.module';
+import { ModeGardenModule } from './mode_garden/mode_garden.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { GardenModule } from './garden/garden.module';
     ScheduleModule,
     GardenModule,
     DeviceModule,
+    ModeGardenModule,
 
     TypeOrmModule.forRoot({
       type: 'postgres',
