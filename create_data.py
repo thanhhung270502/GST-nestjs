@@ -3,7 +3,7 @@ import random
 import datetime
 
 i = 0
-for month in range(1, 2):
+for month in range(2, 3):
     # if month in [1, 3, 5, 7, 8, 10, 12]:
     #     for day in range(1, 32):
     #         for hour in range(24):
@@ -20,20 +20,20 @@ for month in range(1, 2):
     #                 id) + "', 'temp', " + str(value) + ", '" + str(time) + "');"
     #             print(s)
     #             i += 1
-    if month == 1:
-        for day in range(1, 32):
+    if month == 2:
+        for day in range(1, 29):
             for hour in range(24):
                 id = ""
                 if i < 10:
-                    id = "6394879b-41a1-47b3-b984-e8fdabl1800" + str(i)
+                    id = "6394879b-41a1-47b3-b984-e8fdabh2800" + str(i)
                 elif i < 100:
-                    id = "6394879b-41a1-47b3-b984-e8fdabl180" + str(i)
+                    id = "6394879b-41a1-47b3-b984-e8fdabh280" + str(i)
                 elif i < 1000:
-                    id = "6394879b-41a1-47b3-b984-e8fdabl18" + str(i)
-                value = random.randint(100, 409600) / 100
+                    id = "6394879b-41a1-47b3-b984-e8fdabh28" + str(i)
+                value = random.randint(100, 10000) / 100
                 time = datetime.datetime(2022, month, day, hour, 0, 0)
                 s = "INSERT INTO climate (id, type, value, time) VALUES ('" + str(
-                    id) + "', 'soil', " + str(value) + ", '" + str(time) + "');"
+                    id) + "', 'humi', " + str(value) + ", '" + str(time) + "');"
                 print(s)
                 i += 1
     # if month in [4, 6, 9, 11]:
