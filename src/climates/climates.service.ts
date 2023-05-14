@@ -22,13 +22,17 @@ export class ClimatesService {
     return climates;
   }
 
-  async getClimatesByType(type: ClimateType): Promise<Climate[]> {
+  async getClimatesByType(
+    garden_id: string,
+    type: ClimateType,
+  ): Promise<Climate[]> {
     const result = await this.climatesRepository.find({
       order: {
         time: 'ASC',
       },
       where: {
         type: type,
+        garden_id: garden_id,
       },
     });
 

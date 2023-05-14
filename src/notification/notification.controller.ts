@@ -8,9 +8,11 @@ export class NotificationController {
   constructor(private notificationService: NotificationService) {}
 
   // http://localhost:3000/notification
-  @Get()
-  getAllNotifications(): Promise<Notification[]> {
-    return this.notificationService.getAllNotifications();
+  @Get('/:garden_id')
+  getAllNotifications(
+    @Param('garden_id') garden_id: string,
+  ): Promise<Notification[]> {
+    return this.notificationService.getAllNotifications(garden_id);
   }
 
   @Post()
@@ -20,22 +22,6 @@ export class NotificationController {
     return this.notificationService.createNotification(createNotificationDto);
   }
 
-  // @Post('/add/:id/:status/:problem/:sub_problem/:time')
-  // addNotification(
-  //   @Param('id') id: string,
-  //   @Param('status') status: string,
-  //   @Param('problem') problem: string,
-  //   @Param('sub_problem') sub_problem: string,
-  //   @Param('time') time: Date,
-  // ): Promise<void> {
-  //   return this.notificationService.addNotification(
-  //     id,
-  //     status,
-  //     problem,
-  //     sub_problem,
-  //     time,
-  //   );
-  // }
   @Delete('/delete/:id')
   deleteNotification(@Param('id') id: string): Promise<void> {
     return this.notificationService.deleteNotification(id);

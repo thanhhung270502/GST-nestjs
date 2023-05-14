@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Param } from '@nestjs/common';
+import { Body, Controller, Get, Post, Param, Patch } from '@nestjs/common';
 import { HistoryService } from './history.service';
 import { History } from './history.entity';
 import { CreateHistoryDto } from './dto/create-history.dto';
@@ -8,9 +8,9 @@ export class HistoryController {
   constructor(private historyService: HistoryService) {}
 
   // http://localhost:3000/history
-  @Get()
-  getAllHistories(): Promise<History[]> {
-    return this.historyService.getAllHistory();
+  @Get('/:garden_id')
+  getAllHistories(@Param('garden_id') garden_id: string): Promise<History[]> {
+    return this.historyService.getAllHistory(garden_id);
   }
 
   @Post()
@@ -18,13 +18,28 @@ export class HistoryController {
     return this.historyService.createHistory(createHistoryDto);
   }
 
-  // @Post('/add/:id/:editor/:activity/:time')
-  // addHistory(
+  @Patch('/:id')
+  updateHistory(
+    @Param('id') id: string,
+    @Body() hisData: CreateHistoryDto,
+  ): Promise<void> {
+    return this.historyService.updateHistory(id, hisData);
+  }
+
+  // @Post('/update/:user_id/:garden_id/:activity/:time')
+  // updateHistory(
   //   @Param('id') id: string,
-  //   @Param('editor') editor: string,
+  //   @Param('user_id') user_id: string,
+  //   @Param('garden_id') garden_id: string,
   //   @Param('activity') activity: string,
   //   @Param('time') time: Date,
-  // ): Promise<void> {
-  //   return this.historyService.addHistory(id, editor, activity, time);
+  // ): Promise<History> {
+  //   return this.historyService.updateHistory(
+  //     id,
+  //     user_id,
+  //     garden_id,
+  //     activity,
+  //     time,
+  //   );
   // }
 }

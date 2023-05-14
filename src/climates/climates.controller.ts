@@ -15,9 +15,12 @@ export class ClimatesController {
   }
 
   // http://localhost:3000/climates/:type
-  @Get('/:type')
-  getClimatesByType(@Param('type') type: ClimateType): Promise<Climate[]> {
-    return this.climatesService.getClimatesByType(type);
+  @Get('/:garden_id/:type')
+  getClimatesByType(
+    @Param('garden_id') garden_id: string,
+    @Param('type') type: ClimateType,
+  ): Promise<Climate[]> {
+    return this.climatesService.getClimatesByType(garden_id, type);
   }
 
   // http://localhost:3000/climates/last/:type
