@@ -4,6 +4,7 @@ import { Repository } from "typeorm";
 import { CreateModeGardenDto } from "./dto/create-mode_garden.dto";
 import { Mode_Garden } from "./mode_garden.entity";
 import { User } from "src/auth/user.entity";
+import { ClimateType } from "src/climates/climate-type.enum";
 
 @Injectable()
 export class ModeGardenService {
@@ -16,16 +17,29 @@ export class ModeGardenService {
     ) {}
 
     async getAllModeGardens(): Promise<Mode_Garden[]> {
-        const histories = await this.modeGardenRepository.query(`SELECT * FROM MODE_GARDEN`);
+        const mode_gardens = await this.modeGardenRepository.query(`SELECT * FROM MODE_GARDEN`);
 
-        return histories;
+        return mode_gardens;
+    }
+
+    async getModeGarden(garden_id: string, type: ClimateType): Promise<Mode_Garden> {
+        const mode_garden = await this.modeGardenRepository.findOne({
+            where: {
+                garden_id,
+                type
+            }
+        });
+        
+        if (mode_garden) return mode_garden;
+        return null;
     }
 
     async createModeGarden(createModeGardenDto: CreateModeGardenDto): Promise<Mode_Garden> {
-        const { garden_id , mode } = createModeGardenDto;
+        const { garden_id, type, mode } = createModeGardenDto;
 
         const mode_garden = this.modeGardenRepository.create({
             garden_id,
+            type,
             mode,
         });
 
@@ -33,19 +47,16 @@ export class ModeGardenService {
         return mode_garden;
     }
 
-    async updateModeGarden(user_id: string, mode: string): Promise<Mode_Garden> {
-        const user = await this.userRepository
-            .createQueryBuilder("user")
-            .where("user.id = :user_id", {user_id: user_id})
-            .getOne();
-
+    async updateModeGarden(createModeGardenDto: CreateModeGardenDto): Promise<Mode_Garden> {
         const mode_garden = await this.modeGardenRepository.findOne({
             where: {
-                garden_id: user.garden_id
+                garden_id: createModeGardenDto.garden_id
             }
         });
 
-        mode_garden.mode = mode;
+        mode_garden.type = createModeGardenDto.type;
+        mode_garden.mode = createModeGardenDto.mode;
+
         await this.modeGardenRepository.save(mode_garden);
 
         return mode_garden;

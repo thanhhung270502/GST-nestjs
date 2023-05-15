@@ -14,7 +14,10 @@ export class ClimatesService {
     ) {}
 
     async getAllClimates(): Promise<Climate[]> {
-        const climates = await this.climatesRepository.query(`SELECT * FROM CLIMATE`);
+        const climates = await this.climatesRepository
+            .createQueryBuilder("climate")
+            .orderBy("climate.time", "ASC")
+            .getMany();
 
         return climates;
     }

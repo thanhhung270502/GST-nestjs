@@ -9,5 +9,5 @@ export class Garden {
     url: string;
 
     @Column()
-    key: string;
+    gKey: string;
 }

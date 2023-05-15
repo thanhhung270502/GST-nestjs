@@ -1,3 +1,4 @@
+import { ClimateType } from "src/climates/climate-type.enum";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -7,6 +8,9 @@ export class Mode_Garden {
 
     @Column()
     garden_id: string;
+
+    @Column()
+    type: ClimateType;
 
     @Column()
     mode: string;

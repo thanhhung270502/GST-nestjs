@@ -5,5 +5,5 @@ export class CreateGardenDto {
     url: string;
 
     @IsNotEmpty()
-    key: string;
+    gKey: string;
 }

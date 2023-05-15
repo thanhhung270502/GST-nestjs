@@ -22,10 +22,10 @@ export class GardenService {
     }
 
     async createGarden(createGardenDto: CreateGardenDto): Promise<Garden> {
-        const { url, key } = createGardenDto;
+        const { url, gKey } = createGardenDto;
 
         const garden = this.gardenRepository.create({
-            url, key
+            url, gKey
         })
 
         await this.gardenRepository.save(garden);
@@ -39,7 +39,7 @@ export class GardenService {
             }
         });
 
-        garden.key = key;
+        garden.gKey = key;
         await this.gardenRepository.save(garden);
 
         return garden;
@@ -56,7 +56,7 @@ export class GardenService {
             .where("garden.id = :garden_id", {garden_id: user.garden_id})
             .getOne();
 
-        garden.key = key;
+        garden.gKey = key;
 
         await this.gardenRepository.save(garden);
 

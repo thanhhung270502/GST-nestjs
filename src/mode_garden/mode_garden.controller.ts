@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Patch, Post } from "@nestjs/common";
 import { ModeGardenService } from "./mode_garden.service";
 import { CreateModeGardenDto } from "./dto/create-mode_garden.dto";
 import { Mode_Garden } from "./mode_garden.entity";
+import { ClimateType } from "src/climates/climate-type.enum";
 
 @Controller('mode_garden')
 export class ModeGardenController {
@@ -13,13 +14,18 @@ export class ModeGardenController {
         return this.modeGardenService.getAllModeGardens();
     }
 
+    @Get('/:garden_id/:type')
+    getModeGarden(@Param('garden_id') garden_id: string, @Param('type') type: ClimateType): Promise<Mode_Garden> {
+        return this.modeGardenService.getModeGarden(garden_id, type);
+    }
+
     @Post()
     createModeGarden(@Body() createModeGardenDto: CreateModeGardenDto): Promise<Mode_Garden> {
         return this.modeGardenService.createModeGarden(createModeGardenDto);
     }
 
     @Patch()
-    updateModeGarden(@Body('user_id') user_id: string, @Body('mode') mode: string): Promise<Mode_Garden> {
-        return this.modeGardenService.updateModeGarden(user_id, mode);
+    updateModeGarden(@Body() createModeGardenDto: CreateModeGardenDto): Promise<Mode_Garden> {
+        return this.modeGardenService.updateModeGarden(createModeGardenDto);
     }
 }
