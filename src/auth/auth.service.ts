@@ -22,8 +22,7 @@ export class AuthService {
   ) {}
 
   async signUp(authCredentialsDto: AuthCredentialsDto): Promise<void> {
-    const { username, password, name, avatar, garden_id } =
-      authCredentialsDto;
+    const { username, password, name, avatar, garden_id } = authCredentialsDto;
 
     // hash
     const salt = await bcrypt.genSalt();
@@ -69,17 +68,28 @@ export class AuthService {
     }
   }
 
-  async getUserByID(user_id: string): Promise<User> {
+  async getUserByID(id: string): Promise<User> {
     const user = await this.usersRepository.findOne({
       where: {
-        id: user_id
-      }
-    })
+        id: id,
+      },
+    });
 
     if (!user) {
-      throw new NotFoundException(`User with id ${user_id} not found`);
+      throw new NotFoundException(`User with id ${id} not found`);
     }
 
     return user;
+  }
+
+  async pushGardenId(id: string, garden_id: string): Promise<void> {
+    const push = await this.usersRepository
+      .createQueryBuilder('user')
+      .update()
+      .set({
+        garden_id: garden_id,
+      })
+      .where(`id = :id`, { id: id })
+      .execute();
   }
 }

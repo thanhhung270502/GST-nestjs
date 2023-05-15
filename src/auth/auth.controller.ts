@@ -13,9 +13,7 @@ export class AuthController {
   }
 
   @Post('/signin')
-  signIn(
-    @Body() authCredentialsDto: AuthCredentialsDto,
-  ): Promise<User> {
+  signIn(@Body() authCredentialsDto: AuthCredentialsDto): Promise<User> {
     return this.authService.signIn(authCredentialsDto);
   }
 
@@ -24,4 +22,11 @@ export class AuthController {
     return this.authService.getUserByID(id);
   }
 
+  @Post('/:id/:garden_id')
+  pushGardenId(
+    @Param('id') id: string,
+    @Param('garden_id') garden_id: string,
+  ): Promise<void> {
+    return this.authService.pushGardenId(id, garden_id);
+  }
 }

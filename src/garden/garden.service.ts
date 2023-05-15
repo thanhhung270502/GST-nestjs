@@ -1,65 +1,78 @@
 import { CreateGardenDto } from './dto/create-garden.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Garden } from './garden.entity';
-import { Injectable } from "@nestjs/common";
+import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from 'src/auth/user.entity';
 
 @Injectable()
 export class GardenService {
-    constructor(
-        @InjectRepository(Garden)
-        private gardenRepository: Repository<Garden>,
+  constructor(
+    @InjectRepository(Garden)
+    private gardenRepository: Repository<Garden>,
 
-        @InjectRepository(User)
-        private userRepository: Repository<User>
-    ) {}
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
+  ) {}
 
-    async getAllGardens(): Promise<Garden[]> {
-        const gardens = await this.gardenRepository.query("SELECT * FROM USERKEY");
+  async getAllGardens(): Promise<Garden[]> {
+    const gardens = await this.gardenRepository.query('SELECT * FROM GARDEN');
 
-        return gardens;
-    }
+    return gardens;
+  }
 
-    async createGarden(createGardenDto: CreateGardenDto): Promise<Garden> {
-        const { url, gKey } = createGardenDto;
+  async getGardenById(id: string): Promise<Garden> {
+    const gardens = await this.gardenRepository
+      .createQueryBuilder('garden')
+      .where(`garden.id = :garden_id`, { garden_id: id })
+      .getOne();
 
-        const garden = this.gardenRepository.create({
-            url, gKey
-        })
+    await this.gardenRepository.save(gardens);
 
-        await this.gardenRepository.save(garden);
-        return garden;
-    }
+    return gardens;
+  }
 
-    async updateGarden(garden_id: string, key: string): Promise<Garden> {
-        const garden = await this.gardenRepository.findOne({
-            where: {
-                id: garden_id
-            }
-        });
+  async createGarden(createGardenDto: CreateGardenDto): Promise<Garden> {
+    const { url, gKey } = createGardenDto;
 
-        garden.gKey = key;
-        await this.gardenRepository.save(garden);
+    const garden = this.gardenRepository.create({
+      url,
+      gKey,
+    });
 
-        return garden;
-    }
+    await this.gardenRepository.save(garden);
+    return garden;
+  }
 
-    async updateKeyGardenByUser(user_id: string, key: string): Promise<Garden> {
-        const user = await this.userRepository
-            .createQueryBuilder("user")
-            .where("user.id = :user_id", {user_id: user_id})
-            .getOne();
-        
-        const garden = await this.gardenRepository
-            .createQueryBuilder("garden")
-            .where("garden.id = :garden_id", {garden_id: user.garden_id})
-            .getOne();
+  async updateGarden(id: string, gardenData: CreateGardenDto): Promise<void> {
+    const garden = await this.gardenRepository
+      .createQueryBuilder('garden')
+      .update()
+      .set({
+        url: gardenData.url,
+        gKey: gardenData.gKey,
+      })
+      .where(`garden.id = :garden_id`, { garden_id: id })
+      .execute();
+  }
 
-        garden.gKey = key;
+  async updateKeyGardenByUser(user_id: string, gKey: string): Promise<Garden> {
+    const user = await this.userRepository
+      .createQueryBuilder('user')
+      .where('user.id = :user_id', { user_id: user_id })
+      .getOne();
 
-        await this.gardenRepository.save(garden);
+    console.log(user);
 
-        return garden;
-    }
+    const garden = await this.gardenRepository
+      .createQueryBuilder('garden')
+      .where('garden.id = :garden_id', { garden_id: user.garden_id })
+      .getOne();
+
+    garden.gKey = gKey;
+
+    await this.gardenRepository.save(garden);
+
+    return garden;
+  }
 }

@@ -10,26 +10,26 @@ import { GardenModule } from './garden/garden.module';
 import { ModeGardenModule } from './mode_garden/mode_garden.module';
 
 @Module({
-  imports: [
-    ClimatesModule,
-    AuthModule,
-    HistoryModule,
-    NotificationModule,
-    ScheduleModule,
-    GardenModule,
-    DeviceModule,
-    ModeGardenModule,
+    imports: [
+        ClimatesModule,
+        AuthModule,
+        HistoryModule,
+        NotificationModule,
+        ScheduleModule,
+        GardenModule,
+        DeviceModule,
+        ModeGardenModule,
 
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'Petykute161',
-      database: 'climate-management',
-      autoLoadEntities: true,
-      synchronize: true,
-    }),
-  ],
+        TypeOrmModule.forRoot({
+        type: 'postgres',
+        host: 'localhost',
+        port: 5432,
+        username: 'postgres',
+        password: 'Petykute161',
+        database: 'climate-management',
+        autoLoadEntities: true,
+        synchronize: true,
+        }),
+    ],
 })
 export class AppModule {}

@@ -1,19 +1,19 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class History {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @Column()
-    user_id: string;
+  @Column()
+  user_name: string;
 
-    @Column()
-    garden_id: string;
+  @Column()
+  garden_id: string;
 
-    @Column()
-    activity: string;
+  @Column()
+  activity: string;
 
-    @Column()
-    time: Date;
+  @Column()
+  time: Date;
 }
