@@ -2,7 +2,7 @@ import { ClimateType } from 'src/climates/climate-type.enum';
 import { CreateScheduleDto } from './dto/create-schedule.dto';
 import { Schedule } from './schedule.entity';
 import { ScheduleService } from './schedule.service';
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Patch, Post } from "@nestjs/common";
 
 @Controller('schedule')
 export class ScheduleController {
@@ -19,9 +19,15 @@ export class ScheduleController {
         return this.scheduleService.createSchedule(createScheduleDto);
     }
 
-    // http://localhost:3000/schedule/last/:type
-    @Get('/last/:type')
-    getLastScheduleByType(@Param('type') type: ClimateType): Promise<Schedule> {
-        return this.scheduleService.getLastScheduleByType(type);
+    // http://localhost:3000/schedule/:garden_id/:type
+    @Get('/:garden_id/:type')
+    getLastScheduleByType(@Param('garden_id') garden_id: string, @Param('type') type: ClimateType): Promise<Schedule> {
+        return this.scheduleService.getLastScheduleByType(garden_id, type);
+    }
+
+    // http://localhost:3000/schedule/:garden_id/:type
+    @Patch('/:garden_id/:type')
+    updateStatusSchedule(@Param('garden_id') garden_id: string, @Param('type') type: ClimateType, @Body('status') status: string): Promise<Schedule> {
+        return this.scheduleService.updateStatusSchedule(garden_id, type, status);
     }
 }

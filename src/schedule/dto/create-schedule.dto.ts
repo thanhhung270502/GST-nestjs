@@ -13,5 +13,7 @@ export class CreateScheduleDto {
     end_time: Date;
 
     @IsNotEmpty()
-    garden_id: string
+    garden_id: string;
+
+    status: string;
 }

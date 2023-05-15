@@ -20,6 +20,9 @@ export class Schedule {
     garden_id: string;
 
     @Column()
+    status: string;
+
+    @Column()
     created_at: Date;
 
     @Column()
