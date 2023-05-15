@@ -18,9 +18,10 @@ export class NotificationService {
     }
 
     async createNotification(createNotificationDto: CreateNotificationDto): Promise<Notification> {
-        const { problem, sub_problem, time, garden_id } = createNotificationDto;
+        const { status, problem, sub_problem, time, garden_id } = createNotificationDto;
 
         const noti = this.notificationRepository.create({
+            status,
             problem,
             sub_problem,
             time,
